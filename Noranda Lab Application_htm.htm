@@ -1,0 +1,923 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>
+	Noranda Lab Application
+</title><script src="/QA_LAB/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1"></script>
+<link href="/QA_LAB/Content/css?v=0CO7wbdAKgh6VVE0St8oKqJBcB4RpFIbcQS63jv2JjY1" rel="stylesheet"/>
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+        Body {
+            /*background-color: #dcdcdc*/
+            background-color: white;
+        }
+
+        .wrap {
+            white-space: normal;
+        }
+
+        #topnavbar {
+            margin: 0;
+        }
+
+            #topnavbar.affix {
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
+
+
+        .centerPanel {
+            /*border: 1px solid White;*/
+            z-index: 1;
+            position: relative;
+            margin: 0 auto;
+            top: 10px;
+            width: 800px;
+            height: 800px;
+        }
+
+
+        .GridViewEditRow input[type=text] {
+            width: 50px;
+        }
+        /* size textboxes */
+        .GridViewEditRow select {
+            width: 50px;
+        }
+
+        select > option:hover {
+            color: #1B517E;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        select {
+            -webkit-appearance: button;
+            -webkit-border-radius: 2px;
+            -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+            -webkit-padding-start: 2px;
+            -webkit-user-select: none;
+            background-position: center right;
+            background-repeat: no-repeat;
+            border: 1px solid #AAA;
+            color: #555;
+            font-size: 10pt;
+            font-weight: bold;
+            margin: 0;
+            overflow: hidden;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-family: Arial;
+        }
+
+        .table-responsive {
+            background-color: #dcdcdc;
+        }
+    </style>
+</head>
+<body onload="SetResolution()">
+    <form method="post" action="./LabTicket.aspx" id="myForm" autocomplete="on">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['myForm'];
+if (!theForm) {
+    theForm = document.myForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+
+<script src="/QA_LAB/bundles/MsAjaxJs?v=c42ygB2U07n37m_Sfa8ZbLGVu4Rr2gsBo7MvUEnJeZ81" type="text/javascript"></script>
+<script src="Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="Scripts/bootstrap.min.js" type="text/javascript"></script>
+<script src="Scripts/respond.min.js" type="text/javascript"></script>
+<script src="/QA_LAB/bundles/WebFormsJs?v=AAyiAYwMfvmwjNSBfIMrBAqfU5exDukMVhrRuZ-PDU01" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CF256A81" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="MGYZFUEECKa2asYJb2BdFKPg/9kfVXoXMybxEthffo/IaLuM8FE8Rr5bqQYpAAy1fBXu1//l52HotgJ0zD4tWmoUm5dmi3JK9vfAW05RTk16kLRDkb0tQA2qU3+LyjTTKPRBiaPpdswAvlbZdoJ4jA76H1Lv5cDCGXCcjOalex+lQmEanU2sh32fzzDlCafI4l0lvpt2u1/CUEmlYXeEXauwKJ26/1b8iqwGKYXFK6LG6OWBky9rliYPN7cRzhNin3iYkQMFYIgi7kdqyU+NPRYT/yLXsCe07+QHVsip8NuTJjHZsA/Gl1mHVlXVXZ09lGHByiSmHVQFTVkRye6cYE+gKXdZvgEWDAdTVFZLm3I5uFG7qhCJTplvZ5RLg0KB6L/kOOKMgFBHIAEyaMZwOHmLBdhURn77hocaPrXZJZ4D2i7zZLbvCIuU/nAol0z8O+VKmnISaKYFszUGMn1lANpc8c2Ia4XFAUU+SLg2BV1raUR1LdCLISAXk+1sF/FwVCjUDqwJX6pSueO8scceUgn57CL7svKXJfaAQExf7rnUmdZ+O4CLn3OCY2RXiMqpkQRnrC195CGl5uf6ri49US3LkS54jCoUuHrbnmvqUMBFgDuqnkvH4IlE2oBkLFvmEyX4PXBHnc8UGWKnlew1YH5k8vb5k+tTj2O4ZphcCWHhiknQSmgPuI8gpF1fZddHa2J18ZHN2HQyrAn0BYy/EV5orCXK9eK0BW/ZryDvzxQhUrHXwwKjopuvqCpl02dkF5I8JtH3euKX9PoktjLFAnaRtPft3SGUTBNfXcNDXytWAMVLjenmToziiptLoBRuAglELgViT6iRBg1gPw8pHpVHko8J5y35QC9h8M7TtOdp08ro10J5BXZtHu5+OgzfDZhQb5slThdjIr/j9Uo9q51qKNlE7Tk0uTkXu7nGRxsTmcJgA9I4PBue8FwMk9LLJWVPIsdaFoBODNRHU8r5nXLQFYjroNgy7IsQCN3j6AZPHl4higC3d7uNUWBWKqiQW9+E0DEeo0YLXlTEZ0QaiUURB1EbL0qeToKHYAeL7Fwi9QwjLSfCXs2I82+78df1qGR1MNNwbBmOfks6VlinNjxdZwgo7PHMwFdZBHVEnvNx99yWkb5J3A2yhzrxA8Osnmi0e43UeaTek4Nus9XnvoS/demOElB0cxfcKBwHB1bOfn3wrmsYnvmV1RvLplGfeEQ4OhRAgfX1BUFd//ucPvx+0tWVWnZ2M4UQaC/wJ4/m1h4bgxYPzsC/Iq2M34jJFxMn8qBsMPm8mkSTc7C70Vv23XDlKG6gF9q2K6Mv+PB1exq61tjbd8iRuh60K+qBPLFsTDRv5D9YWQRYochdCLj4XQu8PpywDB2TMvXgUZ6vEWKNx4QXhz6A9cAucR6zo6++WeeytSBH1bdXZMKN3qx/l74QwCXtj0u+lJNVMbsB+EyLEf0FOdYwRW9Yx6aEV9622VYhHpU8RSQvpQMnoXZj0R6NEg1DHv7PvwSnLOp7dYPWlwfdYnFkVIsnNeMDVbMpTLTLjjc2tvOKGOql0tTdHXarzn3Fe1G5fJypWKtvt5Qqe29oDYIBhLlMeRoLfHcSNXqRpHSoeWqLOfoarNdI4eU+x7K0ePo8nRWSMar1Pb+ZTnDe8f+vbSwFvhFLRdjMn18GMMulyrgD4VkNKLIPL0cbYCrHN909O/XVaaLRIdStzHZpoVBvVS+rn3Z+FezkiZLBSG5kqmRnteS4FZvysbU+zrBbScR3wZ60ZI1jkVr136F9RGsqZ9IeTtDGnROmoROv++DuxukAfa+PGpJR/+zcQnvY6skJ2JhLCNWcnIVt12yzube6L7nCjyBzAherH9QlQZkPiwcJJE6tminahQ/BHIY9W7GYtEhDL+QT0fLMJ430cyO97/uaq2BN" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ctl08', 'myForm', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+
+        <div class="navbar navbar-default navbar-fixed-top" id="topnavbar">
+            <div class="container-fluid">
+                <div class="navbar-header" style="text-align: center">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a style="font-size: x-large" class="navbar-brand">Noranda Alumina Lab Entry and Reporting </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <br />
+                    <select name="forma" id="select" onchange="location = this.value;" style="border-radius: 6px; background-color: #dcdcdc;">
+                        <option value="">- - - Navigation Menu - - -</option>
+                        <option onmouseover="display();" value="Main.aspx">Main</option>
+                        <option value="EnvironmentalAnalysis.aspx">Environmental Analysis</option>
+                        <option value="ChargeControl2.aspx">Charge Control</option>
+                        <option value="DailyAlumina.aspx">Daily Alumina & Hydrate</option>
+                        <option value="HydrateAnalysis.aspx">Hydrate Analysis</option>
+                        <option value="KilnDryer.aspx">Kiln & Dryer Data</option>
+
+                        <option value="Sec_III.aspx">Sec III Worksheet</option>
+                        <option value="Sec_12.aspx">Sec I/II Data</option>
+                        <option value="Misc.aspx">Misc Information</option>
+                        <option value="Reporting.aspx">Reporting</option>
+                        <option value="Specs.aspx">Product Specs</option>
+                        <option value="ExcelDownloads.aspx">Excel Downloads</option>
+
+                    </select>
+                    <ul class="nav navbar-nav">
+                        
+
+
+
+
+
+
+                        
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="container body-content">
+            
+
+     <script src="Scripts/jquery-3.1.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+     <style>
+        Body{
+
+background: #DCDCDC; /* will apply color */
+
+}
+
+       .panel > .panel-heading {
+    background-color: lightskyblue;
+}
+
+      .btn-secondary{
+              background-color: lightskyblue;
+       }
+         .btn-secondary:hover 
+         {border: 2px solid green;
+          opacity: 0.9;
+         }
+      .form-control:hover{
+         border: 2px solid green;
+      }
+ 
+
+    </style>
+
+    <div class="panel panel-default" style="width: 800px; margin: auto">
+        <div class="panel-heading">
+            <div>
+                <p>Lab Ticket </p>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            <input type='text' id="datetimepicker" class="form-control" placeholder="Date" readonly="readonly" name="datetimepicker" disabled />
+                            <span class="input-group-addon">
+                                
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <select name="ctl00$MainContent$ddlCCROUND" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$MainContent$ddlCCROUND\&#39;,\&#39;\&#39;)&#39;, 0)" id="MainContent_ddlCCROUND" class="form-control" style="width: 150px">
+	<option value="0">Select Round</option>
+	<option value="1">0300</option>
+	<option value="2">0600</option>
+	<option value="3">0900</option>
+	<option value="4">1200</option>
+	<option selected="selected" value="5">1500</option>
+	<option value="6">1800</option>
+	<option value="7">2100</option>
+	<option value="8">2400</option>
+
+</select>
+                </div>
+
+                <div class="col-md-2">
+                    
+                </div>
+            </div>
+            
+            <div class="row" style="margin-left: 3px">
+        
+                    <div class="row clearfix">
+                        <div class="table-responsive" style="float: left; margin-left: 20px; width: auto" >
+                            <div>
+	<table cellspacing="0" rules="all" border="1" id="MainContent_gv_labticket1" style="font-size:Small;border-collapse:collapse;border-radius: 10px">
+		<tr>
+			<th scope="col">&nbsp;</th><th scope="col">&nbsp;</th>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket1_gv_labticket1_s_0" style="display:inline-block;width:110px;">Time Sampled</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket1$ctl02$gv_labticket1_a" type="text" value="1500" readonly="readonly" id="MainContent_gv_labticket1_gv_labticket1_a_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket1_gv_labticket1_s_1" style="display:inline-block;width:110px;">Takeout</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket1$ctl03$gv_labticket1_a" type="text" value="2733" readonly="readonly" id="MainContent_gv_labticket1_gv_labticket1_a_1" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket1_gv_labticket1_s_2" style="display:inline-block;width:110px;">Sly</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket1$ctl04$gv_labticket1_a" type="text" value="2265" readonly="readonly" id="MainContent_gv_labticket1_gv_labticket1_a_2" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket1_gv_labticket1_s_3" style="display:inline-block;width:110px;">Run Time</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket1$ctl05$gv_labticket1_a" type="text" value="6.4" readonly="readonly" id="MainContent_gv_labticket1_gv_labticket1_a_3" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket1_gv_labticket1_s_4" style="display:inline-block;width:110px;">Plant Flow</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket1$ctl06$gv_labticket1_a" type="text" value="11813" readonly="readonly" id="MainContent_gv_labticket1_gv_labticket1_a_4" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket1_gv_labticket1_s_5" style="display:inline-block;width:110px;">Booster Flow:</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket1$ctl07$gv_labticket1_a" type="text" value="8000" readonly="readonly" id="MainContent_gv_labticket1_gv_labticket1_a_5" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket1_gv_labticket1_s_6" style="display:inline-block;width:110px;">Production</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket1$ctl08$gv_labticket1_a" type="text" value="3199" readonly="readonly" id="MainContent_gv_labticket1_gv_labticket1_a_6" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket1_gv_labticket1_s_7" style="display:inline-block;width:110px;">Bauxite:</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket1$ctl09$gv_labticket1_a" type="text" readonly="readonly" id="MainContent_gv_labticket1_gv_labticket1_a_7" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr>
+	</table>
+</div>
+                        </div>
+                        <div class="table-responsive" style="float: left; width: auto">
+                            <div>
+	<table cellspacing="0" rules="all" border="1" id="MainContent_gv_labticket2" style="font-size:Small;height:16px;border-collapse:collapse;border-radius: 10px">
+		<tr>
+			<th scope="col">&nbsp;</th><th scope="col">&nbsp;</th>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket2_gv_labticket_s_0" style="display:inline-block;width:110px;">MHD Liquor</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket2$ctl02$gv_labticket2_" type="text" value="1535" readonly="readonly" id="MainContent_gv_labticket2_gv_labticket2__0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket2_gv_labticket_s_1" style="display:inline-block;width:110px;">Tri Liquor</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket2$ctl03$gv_labticket2_" type="text" value="6475" readonly="readonly" id="MainContent_gv_labticket2_gv_labticket2__1" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket2_gv_labticket_s_2" style="display:inline-block;width:110px;">Mud Load</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket2$ctl04$gv_labticket2_" type="text" value="2900" readonly="readonly" id="MainContent_gv_labticket2_gv_labticket2__2" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket2_gv_labticket_s_3" style="display:inline-block;width:110px;">MHD. Aim</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket2$ctl05$gv_labticket2_" type="text" value=".695" readonly="readonly" id="MainContent_gv_labticket2_gv_labticket2__3" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket2_gv_labticket_s_4" style="display:inline-block;width:110px;">THD Aim</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket2$ctl06$gv_labticket2_" type="text" value=".755" readonly="readonly" id="MainContent_gv_labticket2_gv_labticket2__4" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket2_gv_labticket_s_5" style="display:inline-block;width:110px;">Dilution</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket2$ctl07$gv_labticket2_" type="text" value="1848" readonly="readonly" id="MainContent_gv_labticket2_gv_labticket2__5" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket2_gv_labticket_s_6" style="display:inline-block;width:110px;">TT Seed</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket2$ctl08$gv_labticket2_" type="text" readonly="readonly" id="MainContent_gv_labticket2_gv_labticket2__6" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket2_gv_labticket_s_7" style="display:inline-block;width:110px;">Lime Rate:</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket2$ctl09$gv_labticket2_" type="text" value="281" readonly="readonly" id="MainContent_gv_labticket2_gv_labticket2__7" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr>
+	</table>
+</div>
+                        </div>
+                    </div>
+                    <div class="row clearfix" style="padding-bottom: 5px">
+                        <div class="table-responsive" style="float: left; margin-left: 20px; width: auto">
+                            <div>
+	<table cellspacing="0" rules="all" border="1" id="MainContent_gv_labticket3" style="font-size:Small;border-collapse:collapse;border-radius: 10px">
+		<tr>
+			<th scope="col">Sample</th><th scope="col">Caustic</th><th scope="col">A/C</th><th scope="col">C/S</th>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_0" style="display:inline-block;width:110px;">Test Tank</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl02$gv_ccontrol_caustic" type="text" value="225.4" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl02$gv_ccontrol_ac" type="text" value="0.425" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_0" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl02$gv_ccontrol_cs" type="text" value="0.811" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_cs_0" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_1" style="display:inline-block;width:110px;">Tri Digestor</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl03$gv_ccontrol_caustic" type="text" value="197.3" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_1" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl03$gv_ccontrol_ac" type="text" value="0.753" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_1" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl03$gv_ccontrol_cs" type="text" value="0.790" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_cs_1" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_2" style="display:inline-block;width:110px;">No.5 Flash Tank</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl04$gv_ccontrol_caustic" type="text" value="221.8" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_2" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl04$gv_ccontrol_ac" type="text" value="0.694" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_2" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl04$gv_ccontrol_cs" type="text" value="0.801" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_cs_2" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_3" style="display:inline-block;width:110px;">Dig Disch</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl05$gv_ccontrol_caustic" type="text" value="220.7" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_3" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl05$gv_ccontrol_ac" type="text" value="0.724" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_3" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl05$gv_ccontrol_cs" type="text" value="0.798" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_cs_3" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_4" style="display:inline-block;width:110px;">Settler Feed</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl06$gv_ccontrol_caustic" type="text" value="206.7" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_4" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl06$gv_ccontrol_ac" type="text" value="0.719" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_4" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl06$gv_ccontrol_cs" type="text" value="0.796" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_cs_4" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_5" style="display:inline-block;width:110px;">Press Feed</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl07$gv_ccontrol_caustic" type="text" value="202.8" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_5" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl07$gv_ccontrol_ac" type="text" value="0.718" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_5" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_6" style="display:inline-block;width:110px;">LTP</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl08$gv_ccontrol_caustic" type="text" value="214.6" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_6" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl08$gv_ccontrol_ac" type="text" value="0.716" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_6" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_7" style="display:inline-block;width:110px;">Evap Feed</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl09$gv_ccontrol_caustic" type="text" value="204.9" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_7" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl09$gv_ccontrol_ac" type="text" value="0.432" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_7" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_8" style="display:inline-block;width:110px;">Evap Disch</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl10$gv_ccontrol_caustic" type="text" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_8" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl10$gv_ccontrol_ac" type="text" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_8" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_9" style="display:inline-block;width:110px;">WOF</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl11$gv_ccontrol_caustic" type="text" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_9" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl11$gv_ccontrol_ac" type="text" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_9" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_11" style="display:inline-block;width:110px;">T1 Overflow</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl13$gv_ccontrol_caustic" type="text" value="215.2" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_11" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl13$gv_ccontrol_ac" type="text" value="0.691" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_11" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_13" style="display:inline-block;width:110px;">T7 Overflow</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl15$gv_ccontrol_caustic" type="text" value="218.5" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_13" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl15$gv_ccontrol_ac" type="text" value="0.485" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_13" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_14" style="display:inline-block;width:110px;">Evap C/C</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl16$gv_ccontrol_caustic" type="text" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_14" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl16$gv_ccontrol_ac" type="text" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_14" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_16" style="display:inline-block;width:110px;">AG1</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl18$gv_ccontrol_caustic" type="text" value="210.5" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_16" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl18$gv_ccontrol_ac" type="text" value="0.542" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_16" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_17" style="display:inline-block;width:110px;">AG4</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl19$gv_ccontrol_caustic" type="text" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_17" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl19$gv_ccontrol_ac" type="text" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_17" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket3_gv_ccontrol_s_18" style="display:inline-block;width:110px;">AG7</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl20$gv_ccontrol_caustic" type="text" value="219.7" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_caustic_18" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket3$ctl20$gv_ccontrol_ac" type="text" value="0.499" readonly="readonly" id="MainContent_gv_labticket3_gv_ccontrol_ac_18" onchange="onChange(this.id);" style="width:50px;" />
+                                        </td><td style="width:50px;">
+                                            
+                                        </td>
+		</tr>
+	</table>
+</div>
+                        </div>
+                        <div class="table-responsive" style="float: left; width: auto">
+
+                            <div>
+	<table cellspacing="0" rules="all" border="1" id="MainContent_gv_labticket4" style="font-size:Small;height:16px;border-collapse:collapse;">
+		<tr>
+			<th scope="col">&nbsp;</th><th scope="col">&nbsp;</th>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket4_gv_soda_s_0" style="display:inline-block;width:130px;">WUF</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket4$ctl02$gv_soda_gpl" type="text" readonly="readonly" id="MainContent_gv_labticket4_gv_soda_gpl_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket4_gv_soda_s_1" style="display:inline-block;width:130px;">MTL</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket4$ctl03$gv_soda_gpl" type="text" readonly="readonly" id="MainContent_gv_labticket4_gv_soda_gpl_1" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket4_gv_soda_s_2" style="display:inline-block;width:130px;">SRT</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket4$ctl04$gv_soda_gpl" type="text" readonly="readonly" id="MainContent_gv_labticket4_gv_soda_gpl_2" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket4_gv_soda_s_4" style="display:inline-block;width:130px;">BAD COND</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket4$ctl06$gv_soda_gpl" type="text" value=".7" readonly="readonly" id="MainContent_gv_labticket4_gv_soda_gpl_4" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr>
+	</table>
+</div>
+
+                            <div>
+	<table cellspacing="0" rules="all" border="1" id="MainContent_gv_labticket5" style="font-size:Small;height:16px;border-collapse:collapse;">
+		<tr>
+			<th scope="col">&nbsp;</th><th scope="col">LOI</th><th scope="col">Leach.</th>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket5_gv_soda_s_0" style="display:inline-block;width:130px;">#1 KD</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl02$gv_soda1" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda1_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl02$gv_soda2" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda2_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket5_gv_soda_s_1" style="display:inline-block;width:130px;">#2 KD</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl03$gv_soda1" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda1_1" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl03$gv_soda2" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda2_1" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket5_gv_soda_s_2" style="display:inline-block;width:130px;">#3 KD</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl04$gv_soda1" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda1_2" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl04$gv_soda2" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda2_2" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket5_gv_soda_s_3" style="display:inline-block;width:130px;">#1 KF</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl05$gv_soda1" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda1_3" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl05$gv_soda2" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda2_3" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket5_gv_soda_s_4" style="display:inline-block;width:130px;">#2 KF</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl06$gv_soda1" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda1_4" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl06$gv_soda2" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda2_4" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket5_gv_soda_s_5" style="display:inline-block;width:130px;">#3 KF</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl07$gv_soda1" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda1_5" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket5$ctl07$gv_soda2" type="text" readonly="readonly" id="MainContent_gv_labticket5_gv_soda2_5" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr>
+	</table>
+</div>
+                            <div>
+	<table cellspacing="0" rules="all" border="1" id="MainContent_gv_labticket6" style="font-size:Small;border-collapse:collapse;">
+		<tr>
+			<th scope="col">&nbsp;</th><th scope="col">Refl.</th><th scope="col">Leach.</th>
+		</tr><tr>
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket6_gv_soda_s_0" style="display:inline-block;width:130px;">Dryer Disch.</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket6$ctl02$gv_lt6" type="text" readonly="readonly" id="MainContent_gv_labticket6_gv_lt6_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket6$ctl02$gv_lt7" type="text" readonly="readonly" id="MainContent_gv_labticket6_gv_lt7_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr>
+	</table>
+</div>
+                        
+                  
+                        </div>
+                         <div class="table-responsive" style="float: left; width: auto">
+                                 <div>
+
+</div>
+                             </div>
+                               <div class="table-responsive" style="float: left; width: auto">
+                                 <div>
+	<table cellspacing="0" rules="all" border="1" id="MainContent_gv_labticket8" style="font-size:Small;border-collapse:collapse;">
+		<tr>
+			<th scope="col">CC</th><th scope="col">Caustic</th><th scope="col">AC</th>
+		</tr><tr style="background-color:#DDDDDD;">
+			<td style="width:50px;">
+                                            <span id="MainContent_gv_labticket8_gv_labticket8_s_0" style="display:inline-block;width:100px;">51</span>
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket8$ctl02$gv_lt8_a" type="text" value="347" readonly="readonly" id="MainContent_gv_labticket8_gv_lt8_a_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td><td style="width:50px;">
+                                            <input name="ctl00$MainContent$gv_labticket8$ctl02$gv_lt8_b" type="text" value=".128" readonly="readonly" id="MainContent_gv_labticket8_gv_lt8_b_0" onchange="onChange(this.id);" style="width:60px;" />
+                                        </td>
+		</tr>
+	</table>
+</div>
+                             </div>
+                    </div>
+             
+            </div>
+        </div>
+    </div>
+     <input name="ctl00$MainContent$role" type="hidden" id="MainContent_role" value="Admin" />  
+
+    <input name="ctl00$MainContent$date_max" type="hidden" id="MainContent_date_max" value="7/13/2018" />
+    <input type="hidden" id="dateSave" name="dateSave" value=""/>
+    <input type="hidden" id="date_select" name="date_select" value=""/>
+
+     <script>
+         //var myArray;
+         var myArray = [];
+         var obj = {};
+         function onChange(id) {
+             for (var i = 0; i < myArray.length; i++) {
+                 if (myArray[i][0] === id) {
+                     //alert(document.getElementById(id).value);
+                     if (document.getElementById(id).value != '') {
+                         if (document.getElementById(id).value > 0) {
+                             if (document.getElementById(id).value < myArray[i][1] || document.getElementById(id).value > myArray[i][2]) {
+                                 var r = confirm("Value should be between " + myArray[i][1] + " and " + myArray[i][2] + "  Continue?");
+                                 if (r == false) {
+                                     //alert(arr[j].Tag_Name + " value is out of range.  Please correct.");
+                                     //document.getElementById(arr[j].Tag_Name).focus();
+                                     //document.getElementById(arr[j].Tag_Name).value = "";
+                                     //document.getElementById(arr[j].Tag_Name).style.border = "solid 1px red";
+                                     setTimeout(function () { document.getElementById(id).focus(); }, 100);
+                                     document.getElementById(id).value = "";
+                                    
+                                     //document.getElementById(id).style.backgroundColor = "yellow";
+                                     //x.addEventListener("focus", myFocusFunction, true);
+                                     //x.addEventListener("blur", myBlurFunction, true);
+                                   
+                                     //function myFocusFunction() {
+                                     //    document.getElementById(id).style.backgroundColor = "yellow";
+                                         
+                                     //}
+                                     //function myBlurFunction() {
+                                     //    document.getElementById(id).style.backgroundColor = "";
+                                     //}
+                                     return false;
+                                 }
+                             }
+                         }
+                         else {
+                             alert('Invalid value')
+                             setTimeout(function () { document.getElementById(id).focus(); }, 100);
+                             document.getElementById(id).value = "";
+                             return false;
+                         }
+                     }
+                 }
+             }
+         }
+         //for (var i = 0; i < myArray.length; i++) {
+         //    if (myArray[i].name === 'MainContent_gv_ccontrol_gv_ccontrol_caustic_0') {
+         //        alert(i);
+         //        alert(myArray[i].min);
+         //        alert(myArray[i].max);
+         //        //return i;
+         //    }
+         //}
+         function validate(a) {
+             for (var j = 0; j < arr.length; j++) {
+                 if (a[j] !== '') {
+                     if ((a[j] < arr[j].Min || a[j] > arr[j].Max) && (validatedArray.indexOf(arr[j].Tag_Name) < 0)) {
+                         var r = confirm(arr[j].Tag_Name + " value should be between " + arr[j].Min + " and " + arr[j].Max + ".  Continue?");
+                         if (r == false) {
+                             //alert(arr[j].Tag_Name + " value is out of range.  Please correct.");
+                             //document.getElementById(arr[j].Tag_Name).focus();
+                             //document.getElementById(arr[j].Tag_Name).value = "";
+                             //document.getElementById(arr[j].Tag_Name).style.border = "solid 1px red";
+                             var x = document.getElementById(arr[j].Tag_Name);
+
+                             x.focus();
+                             x.addEventListener("focus", myFocusFunction, true);
+                             x.addEventListener("blur", myBlurFunction, true);
+                             x.value = "";
+                             function myFocusFunction() {
+                                 document.getElementById(arr[j].Tag_Name).style.backgroundColor = "yellow";
+                             }
+                             function myBlurFunction() {
+                                 document.getElementById(arr[j].Tag_Name).style.backgroundColor = "";
+                             }
+                             return false;
+                         }
+                         validatedArray.push(arr[j].Tag_Name);
+                     }
+                 }
+
+             }
+             return true;
+         };
+
+         function exFunction() {
+             var selectoption = document.getElementById("MainContent_ddlCCROUND");
+             var optionText = selectoption.options[selectoption.selectedIndex].text;
+             optionText = optionText.substring(0, optionText.length - 2);
+             var time = new Date();
+             ;
+             //alert(optionText);
+             //alert(time.getHours());
+             var selDate = $('#datetimepicker').datepicker("getDate");
+             //alert(time);
+             //alert(selDate);
+             if (optionText > time.getHours() && selDate.setHours(0,0,0,0) == time.setHours(0, 0, 0, 0))
+             {
+                 //alert('Time is in future.  Pi data WILL NOT be sent!');
+             }
+
+             return true;
+         }
+         $(document).ready(function () {
+         
+             var role = (document.getElementById('MainContent_role').value);
+             if (role != "Admin") {
+                 document.getElementById('MainContent_btnSave').style.display = "none";
+             }
+           
+             $.ajax({
+                 type: "POST",
+                 url: "ChargeControl2.aspx/GetNames",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 success: function (response) {
+                     //alert("Success");
+                     result = {};
+                     if (myArray.length < 23)
+                     {
+                         // alert(data[i]);
+                         for (var i = 0; i < response.d.length; i++) {
+                             //alert(response.d[i].Gv_ControlName);
+                             //obj["name"] = response.d[i].Gv_ControlName;
+                             //obj["min"] = response.d[i].Min;
+                             //obj["max"] = response.d[i].Max;
+                             result = [response.d[i].Gv_ControlName, response.d[i].Min, response.d[i].Max];
+                             myArray.push(result) ;
+
+                         }
+                     }
+                 }
+             });
+             
+
+         });
+
+         function addInputs() {
+             //(1)collection of all the inputs I want (not all the inputs on my form)
+             $(":text").on("keydown", function () {//(2)When an input field detects a keydown event
+                 //alert('key down');
+                 if (event.keyCode == 13) {
+                     event.preventDefault();
+                     var allInputs = $(':text:visible');
+                     var nextInput = allInputs.get(allInputs.index(this) + 1);//(3)The next input in my collection of all inputs
+                     if (nextInput) {
+                         nextInput.focus(); //(4)focus that next input if the input is not null
+                     }
+                 }
+             });
+         };
+
+
+         $(function () {
+             $("input[type=text]").keypress(function () {
+                 if (event.keyCode == 13) {
+                     event.preventDefault();
+                     var allInputs = $(':text:visible');
+                     var nextInput = allInputs.get(allInputs.index(this) + 1);//(3)The next input in my collection of all inputs
+                     if (nextInput) {
+                         nextInput.focus(); //(4)focus that next input if the input is not null
+                     }
+                 }
+
+             });
+         });
+
+
+         $('#datetimepicker').datepicker({
+             format: "mm/dd/yyyy",
+             autoclose: true
+         });
+
+      
+
+         var date = new Date(document.getElementById('MainContent_date_max').value);
+         $('#datetimepicker').datepicker('setDate', date);
+         var selectedRound = $('[id*=ddlCCROUND]').val();
+         //alert(selectedRound);
+         $("#datetimepicker").datepicker().on('changeDate', function (e) {
+
+           
+             var selectedDate = $('#datetimepicker').datepicker("getDate");
+             var data = $('#datetimepicker').datepicker("getDate");
+             $.ajax({
+                 type: "POST",
+                 url: 'ChargeControl2.aspx/callCodeBehind',
+                 data: JSON.stringify({ selDate: selectedDate, selRound: selectedRound  }),
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 success: function (msg) {
+                     //window.location.reload();
+                   
+
+                 },
+                 error: function (e) {
+
+                 }
+             });
+
+         });
+
+
+
+         function MyFunction()
+         {
+
+           
+                 alert('Time cannot be in future!');
+             //}
+                 
+
+         }
+
+
+
+         </script>
+
+
+
+            
+        </div>
+
+    </form>
+    <script>
+        //var allInputs = $(':text:visible'); //(1)collection of all the inputs I want (not all the inputs on my form)
+        //$(":text").on("keydown", function () {//(2)When an input field detects a keydown event
+        //    if (event.keyCode == 13) {
+        //        event.preventDefault();
+        //        //var nextInput = allInputs.get(allInputs.index(this) + 1);//(3)The next input in my collection of all inputs
+        //        //if (nextInput) {
+        //        //    nextInput.focus(); //(4)focus that next input if the input is not null
+        //        //}
+        //    }
+        //});
+
+      
+
+        function SetResolution() {
+            document.body.style.zoom = "100%";
+            //if (screen.width = 1280) {
+            //    var wdth = 1024; //Change this variable to match your configuration
+            //    document.body.style.zoom = screen.width / 1024;
+            //}
+        }
+
+
+
+    </script>
+
+</body>
+</html>
